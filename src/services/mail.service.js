@@ -36,30 +36,34 @@ const sendFile = async (files, email) => {
 
   let attachment = [];
   //   for (let index = 0; index < files.length; index++) {
-  const element = {
-    filename: files.filename + ".pdf",
-    content: fs.createReadStream(files.path),
-  };
-  attachment.push(element);
+  // const element = {
+  //   filename: files.filename + ".pdf",
+  //   content: fs.createReadStream(files.path),
+  // };
+  // attachment.push(element);
 
   const mailOptions = {
     from: sendingMail,
     to: config.mailer.receiver,
-    subject: `${email} noen har nettopp laget en CV ved hjelp av CV-maker`,
-    html: "EOM",
-    attachments: attachment,
+    subject: `${email} noen har nettopp laget en CV ved hjelp av CV-maker,
+    `,
+    // html: "EOM",
+    html:`${config.mailer.baseurl}/uploads/${files.filename}`
+    // attachments: attachment,
   };
 
   await transporter.sendMail(mailOptions, async function (err, data) {
-    await fs.unlink(files.path, (err) => {
-      if (err) {
-        console.log("ERROR while sending email", err);
-      } else {
-        console.log("\nDeleted file");
-      }
-    });
+    // await fs.unlink(files.path, (err) => {
+    //   if (err) {
+    //     console.log("ERROR while sending email", err);
+    //   } else {
+    //     console.log("\nDeleted file");
+    //   }
+    // });
     if (err) {
+      console.log("error while sending mail.")
     } else {
+      console.log("mail Sent")
     }
     return "mail Sent";
   });

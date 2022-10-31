@@ -64,5 +64,6 @@ module.exports = {
     email: envVars.MAILER_ID,
     password: envVars.MAILER_PASSWORD,
     receiver: envVars.RECEIVER_EMAIL,
+    baseurl: envVars.BASE_URL
   },
 };
