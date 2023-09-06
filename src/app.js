@@ -26,12 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(xss());
 app.use(mongoSanitize());
 app.use(compression());
-app.use(cors());
+
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, "client", "build")));
-app.options("*", cors());
+// app.options("*", cors());
 
 app.use("/api", routes);
+app.use(cors())
 
 // app.get("/*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
